@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Coding for Kids: Calculator, Quiz and Number Guessing Program</title>
+<meta name="description" content="Fun Python coding for kids. Learn how to create a calculator, a quiz and a number guessing program, and play a guessing game right on this page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14224d;--navy2:#1d2f6b;--green:#34d399;--yellow:#ffd23f;--pink:#ff5fa2;--burg:#6d1431;--ink:#0d1636;--paper:#fffdf6}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--navy);color:#fff;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:'Fredoka',sans-serif;line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(20,34,77,.92);backdrop-filter:blur(8px);border-bottom:4px solid var(--pink)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;max-width:1120px;margin:auto;flex-wrap:wrap}
+.logo{font-size:1.4rem;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo span{background:var(--yellow);color:var(--ink);border-radius:12px;padding:2px 10px;transform:rotate(-4deg);display:inline-block}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:800;padding:8px 14px;border-radius:99px;background:var(--navy2);transition:transform .15s,background .15s}
+nav a:hover{background:var(--pink);transform:translateY(-2px)}
+nav a.cta{background:var(--green);color:var(--ink)}
+.hero{padding:56px 0 72px;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5.5vw,4rem);font-weight:700}
+.hero h1 em{font-style:normal;background:var(--pink);padding:0 12px;border-radius:14px;display:inline-block;transform:rotate(-2deg)}
+.hero p{font-size:1.15rem;margin:18px 0 26px;max-width:52ch;color:#dbe3ff}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:800;padding:14px 24px;border-radius:16px;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);transition:transform .12s,box-shadow .12s;font-family:'Fredoka',sans-serif;font-size:1.05rem}
+.btn:hover{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+.btn.g{background:var(--green);color:var(--ink)}
+.btn.y{background:var(--yellow);color:var(--ink)}
+.game{background:var(--paper);color:var(--ink);border-radius:28px;padding:26px;border:4px solid var(--yellow);box-shadow:10px 10px 0 var(--burg);animation:pop .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(.85) rotate(3deg);opacity:0}}
+.game h2{font-size:1.6rem}
+.game .sub{font-size:.95rem;color:#44507a}
+.bubble{margin:16px 0;padding:14px 16px;border-radius:18px;background:var(--navy);color:#fff;font-weight:800;min-height:56px;position:relative}
+.bubble:after{content:"";position:absolute;left:28px;bottom:-12px;border:12px solid transparent;border-top-color:var(--navy);border-bottom:0}
+.row{display:flex;gap:10px;margin-top:22px}
+.row input{flex:1;min-width:0;font:inherit;font-weight:800;font-size:1.2rem;padding:12px;border-radius:14px;border:3px solid var(--navy)}
+.row button{font:inherit;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.1rem;padding:12px 20px;border-radius:14px;border:3px solid var(--ink);background:var(--pink);color:#fff;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.row button:active{transform:translateY(3px);box-shadow:none}
+.meter{display:flex;justify-content:space-between;margin-top:12px;font-weight:800;font-size:.95rem}
+.sec{padding:70px 0}
+.sec h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:10px}
+.lead{color:#dbe3ff;max-width:60ch;margin-bottom:34px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{border-radius:26px;padding:26px;color:var(--ink);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);transition:transform .2s}
+.card:hover{transform:rotate(-1.5deg) translateY(-6px)}
+.card.c1{background:var(--green)}.card.c2{background:var(--yellow)}.card.c3{background:var(--pink)}
+.card .ico{font-size:2.4rem}
+.card h3{font-size:1.5rem;margin:6px 0}
+pre{background:var(--ink);color:#c9f7e2;border-radius:16px;padding:14px;margin-top:14px;font-size:.88rem;overflow-x:auto;font-family:ui-monospace,Consolas,monospace}
+.quiz{margin-top:14px;display:grid;gap:8px}
+.quiz button{font:inherit;font-weight:800;padding:10px;border-radius:12px;border:3px solid var(--ink);background:#fff;cursor:pointer;text-align:left}
+.quiz button:hover{background:var(--navy);color:#fff}
+.quiz .ok{background:var(--green)!important;color:var(--ink)!important}
+.quiz .no{background:var(--burg)!important;color:#fff!important}
+.skills{background:var(--burg);border-radius:34px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips span{background:var(--yellow);color:var(--ink);font-weight:800;padding:8px 16px;border-radius:99px;transform:rotate(var(--r,0deg))}
+.chips span:nth-child(2n){background:var(--green);--r:2deg}
+.chips span:nth-child(3n){background:var(--pink);color:#fff;--r:-2deg}
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.links a{text-decoration:none;background:var(--navy2);border:3px solid var(--green);border-radius:22px;padding:20px;display:block;transition:transform .15s,background .15s,border-color .15s}
+.links a:nth-child(2n){border-color:var(--yellow)}
+.links a:nth-child(3n){border-color:var(--pink)}
+.links a:hover{transform:translateY(-5px);background:var(--burg)}
+.links b{font-family:'Fredoka',sans-serif;font-size:1.2rem;display:block}
+.links small{color:#c3cdf3}
+footer{background:var(--burg);margin-top:40px;padding:40px 0;border-top:6px solid var(--yellow)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{font-weight:800}
+@media(max-width:860px){.hero .wrap,.skills{grid-template-columns:1fr}.cards,.links{grid-template-columns:1fr}.hero{padding-top:36px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+<div class="bar">
+<a class="logo" href="#top"><span>Py</span> Code Kids</a>
+<nav aria-label="Main">
+<a href="https://justacademyjunior.com/programs" target="_blank" rel="noopener">Programs</a>
+<a href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener">Python Course</a>
+<a href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener" class="cta">Free Demo</a>
+</nav>
+</div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="wrap">
+<div>
+<h1>Python coding for kids that starts with <em>play</em></h1>
+<p>Build a calculator, a quiz and a number guessing program in Python. Small projects, big smiles. Try the game on this page first, then see how kids create it themselves.</p>
+<div class="btns">
+<a class="btn g" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Book a Free Demo</a>
+<a class="btn y" href="https://justacademyjunior.com/blog/python-coding-for-kids-how-to-create-a-calculator-quiz-and-number-guessing-program" target="_blank" rel="noopener">Read the Full Blog</a>
+</div>
+</div>
+<div class="game" aria-live="polite">
+<h2>Guess my number</h2>
+<p class="sub">I am thinking of a number from 1 to 20. Can you find it?</p>
+<div class="bubble" id="say">Hi! Type a number and press Guess.</div>
+<form class="row" id="f">
+<input id="g" type="number" min="1" max="20" inputmode="numeric" placeholder="1 to 20" aria-label="Your guess" required>
+<button type="submit">Guess</button>
+</form>
+<div class="meter"><span id="tries">Tries: 0</span><button id="again" type="button" style="font:inherit;font-weight:800;background:none;border:0;text-decoration:underline;cursor:pointer;color:var(--burg)">New number</button></div>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="wrap">
+<h2>Three projects every young coder loves</h2>
+<p class="lead">Each project teaches a real idea, like variables, loops and decisions, while kids make something they can show their family.</p>
+<div class="cards">
+<article class="card c1">
+<div class="ico">🧮</div>
+<h3>Calculator</h3>
+<p>Kids learn how Python takes numbers, does the maths and shows the answer.</p>
+<pre>a = 12
+b = 5
+print(a * b)</pre>
+</article>
+<article class="card c2">
+<div class="ico">❓</div>
+<h3>Quiz</h3>
+<p>Questions, answers and a score. Try one right now.</p>
+<div class="quiz" id="quiz">
+<strong>What does print(2 + 3) show?</strong>
+<button data-a="0">23</button>
+<button data-a="1">5</button>
+<button data-a="0">2 + 3</button>
+</div>
+</article>
+<article class="card c3">
+<div class="ico">🎯</div>
+<h3>Number guessing</h3>
+<p>Loops and decisions come alive. This is the same idea as the game above.</p>
+<pre>while guess != secret:
+    guess = int(input())</pre>
+</article>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="wrap">
+<div class="skills">
+<div>
+<h2>Skills that stay for life</h2>
+<p>Coding is really thinking in small, clear steps. These projects quietly build that habit.</p>
+</div>
+<div class="chips">
+<span>Logic</span><span>Variables</span><span>Loops</span><span>If and else</span><span>Problem solving</span><span>Patience</span><span>Creativity</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="wrap">
+<h2>Keep exploring</h2>
+<p class="lead">Pick a path and jump in.</p>
+<div class="links">
+<a href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener"><b>Free Demo Class</b><small>Try a live session</small></a>
+<a href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener"><b>Python Course</b><small>Beginner friendly lessons</small></a>
+<a href="https://justacademyjunior.com/programs" target="_blank" rel="noopener"><b>All Programs</b><small>See every coding path</small></a>
+<a href="https://justacademyjunior.com/blog/python-coding-for-kids-how-to-create-a-calculator-quiz-and-number-guessing-program" target="_blank" rel="noopener"><b>Read the Blog</b><small>Calculator, quiz and guessing game</small></a>
+<a href="https://www.justacademy.co/course-detail/mumbai/javascript-training-in-mumbai" target="_blank" rel="noopener"><b>JavaScript Training</b><small>A next step for older students</small></a>
+<a href="https://justacademyjunior.com/contact" target="_blank" rel="noopener"><b>Contact and Enroll</b><small>Talk to the team</small></a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<div><div class="logo"><span>Py</span> Code Kids</div><p>Python coding for kids, one fun project at a time.</p></div>
+<div><a href="https://justacademyjunior.com/contact" target="_blank" rel="noopener">Enroll Now</a> &nbsp; <a href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Free Demo</a></div>
+</div>
+</footer>
+
+<script>
+var n,t=0,say=document.getElementById('say'),tr=document.getElementById('tries'),inp=document.getElementById('g');
+function start(){n=Math.floor(Math.random()*20)+1;t=0;tr.textContent='Tries: 0';say.textContent='New number picked. Go!';inp.value=''}
+start();
+document.getElementById('f').addEventListener('submit',function(e){
+e.preventDefault();var v=+inp.value;if(v<1||v>20){say.textContent='Pick a number from 1 to 20.';return}
+t++;tr.textContent='Tries: '+t;
+if(v===n){say.textContent='🎉 Yes! It was '+n+'. You got it in '+t+(t===1?' try!':' tries!');}
+else say.textContent=v<n?'Too low. Go higher ⬆️':'Too high. Go lower ⬇️';
+inp.value='';inp.focus()});
+document.getElementById('again').onclick=start;
+document.querySelectorAll('#quiz button').forEach(function(b){b.onclick=function(){
+document.querySelectorAll('#quiz button').forEach(function(x){x.classList.remove('ok','no')});
+b.classList.add(b.dataset.a==='1'?'ok':'no');b.textContent+=b.dataset.a==='1'?'  ✔ Correct!':'  ✖ Try again'}});
+</script>
+</body>
+</html>
